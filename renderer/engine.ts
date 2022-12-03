@@ -52,10 +52,10 @@ export interface RenderOutput {
 // }
 
 // Square
-export function shader(input: RenderInput): RenderOutput {
-	const isEdge = rect(input, Point(1, 1), Extent(12, 5));
-	return { color: isEdge ? "#8d1bd2" : "#333", activation: 1 };
-}
+// export function shader(input: RenderInput): RenderOutput {
+// 	const isEdge = rect(input, Point(1, 1), Extent(12, 5));
+// 	return { color: isEdge ? "#8d1bd2" : "#333", activation: 1 };
+// }
 
 // Checkered, marching
 // export function shader(input: RenderInput): RenderOutput {
@@ -74,10 +74,10 @@ export function shader(input: RenderInput): RenderOutput {
 // }
 
 // Checkered, marching but FAST *and* rainbox
-// export function shader(input: RenderInput): RenderOutput {
-// 	const { x, y, t } = input;
-// 	const h = (x + t * 20) % 10 >= 5;
-// 	const v = (y + t * 20) % 10 >= 5;
-// 	const color = `hsl(${(((x - y + t * 100) / 100) * 360).toPrecision(5)}, 100%, 50%)`;
-// 	return { color: h ^ v ? color : "#333", activation: 1 };
-// }
+export function shader(input: RenderInput): RenderOutput {
+	const { x, y, t } = input;
+	const h = (x + t * 10) % 10 >= 5;
+	const v = (y + t * 10) % 10 >= 5;
+	const color = `hsl(${(((x - y + t * 10) / 100) * 360).toPrecision(5)}, 90%, 70%)`;
+	return { color: h ^ v ? color : "#333", activation: 1 };
+}
