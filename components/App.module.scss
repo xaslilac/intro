@@ -1,0 +1,18 @@
+.columns {
+	height: 99vh;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	padding: 10px;
+	gap: 30px;
+	align-items: center;
+	justify-content: center;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 30px;
+	align-items: center;
+}
