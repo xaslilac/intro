@@ -5,5 +5,5 @@
 		"types": ["jest"],
 		"baseUrl": "."
 	},
-	"include": ["./src/**/*"]
+	"include": ["./**/*"]
 }

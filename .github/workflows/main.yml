@@ -14,18 +14,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
-
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
+        with: 18.x
 
-      - run: echo "::set-output name=location::$(npm config get cache)"
+      - run: echo "::set-output name=location::$(yarn cache dir)"
         id: npm-cache
         shell: bash
 
@@ -36,13 +31,11 @@ jobs:
           restore-keys: build-npm-
 
       - run: |
-          npm install
+          yarn
           git diff --exit-code
 
       - run: yarn prettier --check .
 
-      - run: npm run build
-      - run: npm run lint
-      - run: npm run test
-
-      - uses: codecov/codecov-action@v3
+      - run: yarn lint
+      - run: yarn test
+      - run: yarn build

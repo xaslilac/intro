@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 
+import { shader } from "../renderer/engine";
 import { Dot } from "./Dot";
-import { render } from "../engine";
+import { useScreen } from "./Screen";
 
 import * as styles from "./App.module.scss";
 
 export function App() {
 	const [start] = useState(() => Date.now());
 	const [frame, setFrame] = useState(0);
+
+	const screen = useScreen();
 
 	useEffect(() => {
 		let enabled = true;
@@ -26,10 +29,10 @@ export function App() {
 
 	return (
 		<div className={styles.columns}>
-			{Array.from({ length: 25 }, (_, x) => (
-				<div key={x} className={styles.row}>
-					{Array.from({ length: 30 }, (_, y) => {
-						const { color, activation } = render({ x, y, t: frame });
+			{Array.from({ length: screen.height }, (_, y) => (
+				<div key={y} className={styles.row}>
+					{Array.from({ length: screen.width }, (_, x) => {
+						const { color, activation } = shader({ x, y, t: frame });
 						return (
 							<Dot
 								key={`${x},${y}`}

@@ -9,12 +9,20 @@ interface ScreenContext {
 	readonly height: number;
 }
 
+export const screenPxToMatrixPx = (screenPx: number) =>
+	Math.floor((screenPx - 20) / 35) + 1;
+
+export const getMatrixDimensions = () => ({
+	width: screenPxToMatrixPx(window.innerWidth),
+	height: screenPxToMatrixPx(window.innerHeight),
+});
+
 const ScreenContext = createContext<ScreenContext>({
 	get width() {
-		return window.innerWidth;
+		return screenPxToMatrixPx(window.innerWidth);
 	},
 	get height() {
-		return window.innerHeight;
+		return screenPxToMatrixPx(window.innerHeight);
 	},
 });
 
@@ -25,17 +33,11 @@ export function useScreen() {
 export function Screen(props: ScreenProps) {
 	const { children } = props;
 
-	const [value, setValue] = useState(() => ({
-		width: window.innerWidth,
-		height: window.innerHeight,
-	}));
+	const [value, setValue] = useState(getMatrixDimensions);
 
 	useEffect(() => {
 		const onResize = () => {
-			setValue({
-				width: window.innerWidth,
-				height: window.innerHeight,
-			});
+			setValue(getMatrixDimensions);
 		};
 
 		window.addEventListener("resize", onResize);
