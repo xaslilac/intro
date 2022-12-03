@@ -17,6 +17,9 @@ yarn
 yarn dev
 ```
 
+Go poke around in ./renderer/engine.ts and have fun! There are lots of samples to get you
+started.
+
 ## How it works
 
 Intro is based around a dot-matrix display (a screen made out of a grid of small dots)

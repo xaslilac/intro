@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { shader } from "../renderer/engine";
 import { Dot } from "./Dot";
@@ -27,8 +27,16 @@ export function App() {
 		};
 	}, []);
 
+	const onDoubleClick = useCallback(() => {
+		if (!document.fullscreenElement) {
+			document.body.requestFullscreen();
+		} else {
+			document.exitFullscreen();
+		}
+	}, []);
+
 	return (
-		<div className={styles.columns}>
+		<div className={styles.columns} onDoubleClick={onDoubleClick}>
 			{Array.from({ length: screen.height }, (_, y) => (
 				<div key={y} className={styles.row}>
 					{Array.from({ length: screen.width }, (_, x) => {

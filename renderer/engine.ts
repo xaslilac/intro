@@ -1,5 +1,6 @@
 import { Extent, Point, rect } from "./geometry";
-import { clamp } from "../math";
+import { hexToString, lerpHex } from "../color";
+import { clamp, lerpClamp, translate } from "../math";
 
 export interface RenderInput {
 	x: number;
@@ -84,21 +85,51 @@ export interface RenderOutput {
 // }
 
 // Sweep
+// export function shader(input: RenderInput): RenderOutput {
+// 	const { x, y, t } = input;
+
+// 	const h = (x + y) % 20;
+// 	const tm = (t * 12) % 20;
+// 	const tm2 = ((t * 12) % 20) - 20;
+
+// 	// The second pass is to check from the "left". When `tm` is around 19 `tm2` will be
+// 	// around -1, which allows us to accurately check the distance when `h` is 0. For
+// 	// example: 19 an 0 are quite distant, but -1 and 0 are quite close.
+// 	const tmActivation = clamp(1 - Math.abs(h - tm), 0, 1);
+// 	const tm2Activation = clamp(1 - Math.abs(h - tm2), 0, 1);
+
+// 	return {
+// 		color: "#3fbff6",
+// 		activation: 0.5 + Math.max(tmActivation, tm2Activation),
+// 	};
+// }
+
+// Sine wave
+// export function shader(input: RenderInput): RenderOutput {
+// 	const { x, y, t } = input;
+
+// 	const targetY = (Math.sin((x + t * 6) / 6) + 1) * 8 + 8;
+// 	const activation = 0.5 + clamp(1 - Math.abs(y - targetY), 0, 1);
+// 	const color = hexToString(lerpHex(x / 40, 0x8d1bd2, 0xf6199e));
+
+// 	return { color, activation };
+// }
+
+// Raindrops?
+// export function shader(input: RenderInput): RenderOutput {
+// 	const { x, y, t } = input;
+
+// 	const activation = 0.5 + Math.tan((x * 0.7529592 + y * 0.458018) * 2 - t);
+// 	const color = hexToString(lerpHex(y / 20, 0x53c2f2, 0x3ff6f6));
+// 	return { color, activation };
+// }
+
+// Cool wavey line thing
 export function shader(input: RenderInput): RenderOutput {
 	const { x, y, t } = input;
 
-	const h = (x + y) % 20;
-	const tm = (t * 12) % 20;
-	const tm2 = ((t * 12) % 20) - 20;
-
-	// The second pass is to check from the "left". When `tm` is around 19 `tm2` will be
-	// around -1, which allows us to accurately check the distance when `h` is 0. For
-	// example: 19 an 0 are quite distant, but -1 and 0 are quite close.
-	const tmActivation = clamp(1 - Math.abs(h - tm), 0, 1);
-	const tm2Activation = clamp(1 - Math.abs(h - tm2), 0, 1);
-
-	return {
-		color: "#3fbff6",
-		activation: 0.5 + Math.max(tmActivation, tm2Activation),
-	};
+	const activation = 0.5 + Math.tan((x * 0.7529592 + y * 0.458018) / 5 - t);
+	// const color = hexToString(lerpHex(y / 25, 0x7df46a, 0xf4de6a)); // green and yellow
+	const color = hexToString(lerpHex(x / 40, 0x8d1bd2, 0xf6199e)); // purple and pink
+	return { color, activation };
 }
