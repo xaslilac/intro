@@ -38,7 +38,6 @@ export function App() {
 								key={`${x},${y}`}
 								color={color}
 								activation={activation}
-								frame={frame}
 							/>
 						);
 					})}
