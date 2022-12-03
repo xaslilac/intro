@@ -8,7 +8,7 @@
 A playground to learn about graphics programming that only requires basic programming
 knowledge, and which provides a unique set of constraints to work within.
 
-### Getting Started
+## Getting Started
 
 You'll need Yarn v1.x and a recent version of Node
 
@@ -17,7 +17,7 @@ yarn
 yarn dev
 ```
 
-### How it works
+## How it works
 
 Intro is based around a dot-matrix display (a screen made out of a grid of small dots)
 which is controlled by your shader program.
@@ -30,7 +30,7 @@ produce some information that can be used to compose the image, which in Intro i
 That is, you write a bit of code called a "shader", which Intro will run for each dot in
 the display. Your shader does some work, and tells Intro what color the dot should be.
 
-#### An example
+### An example
 
 ```typescript
 export function shader(input: RenderInput): RenderOutput {
@@ -42,10 +42,18 @@ export function shader(input: RenderInput): RenderOutput {
 This example will draw a purple vertical line through the dot-matrix. Try changing the `0`
 in `x === 0` to some other numbers and watch the line move around!
 
-#### Timing and activation
+### Timing
 
 It's cool that we can draw a line, and move it around, but what if it was able to move by
 itself?
+
+<!--
+This gets complicated quickly. `t` is floating point so `===` breaks down immediately.
+Plus if you don't do something to make it loop the line will just fly off the screen and
+never be seen again. Making a line move is already *much* more complicated than the
+previous example. You also probably wanna use activation to make it look good, but I kind
+of want to introduce activation *after* timing.
+-->
 
 ```typescript
 export function shader(input: RenderInput): RenderOutput {
@@ -53,3 +61,5 @@ export function shader(input: RenderInput): RenderOutput {
 	return { color: x === 0 ? "#8d1bd2" : "#333" };
 }
 ```
+
+### Activation
