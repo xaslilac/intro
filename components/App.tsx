@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { shader } from "../renderer/engine";
+import { SHADERS } from "../renderer/engine";
 import { Dot } from "./Dot";
 import { useScreen } from "./Screen";
 
@@ -9,6 +9,20 @@ import * as styles from "./App.module.scss";
 export function App() {
 	const [start] = useState(() => Date.now());
 	const [frame, setFrame] = useState(0);
+	const [shader, setShader] = useState(() => SHADERS.get("s")!);
+
+	useEffect(() => {
+		const onKeyDown = (event: KeyboardEvent) => {
+			const shader = SHADERS.get(event.key.toLowerCase());
+
+			if (shader) {
+				setShader(() => shader);
+			}
+		};
+
+		document.addEventListener("keydown", onKeyDown);
+		return () => document.removeEventListener("keydown", onKeyDown);
+	}, []);
 
 	const screen = useScreen();
 
