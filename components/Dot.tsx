@@ -18,7 +18,7 @@ export function Dot(props: DotProps) {
 			className={styles.dot}
 			style={{
 				// opacity: clamp(activation, 0, 1),
-				transform: `scale(${clamp(activation, 0, 1.5)})`,
+				transform: `scale(${clamp(activation, 0.3, 1.5)})`,
 			}}
 		>
 			<circle cx="3" cy="3" r="3" fill={color} />

@@ -46,9 +46,8 @@ export function gradientFast(input: RenderInput): RenderOutput {
 // Monochrome gradient
 export function gradientMonochrome(input: RenderInput): RenderOutput {
 	const { x, y, t } = input;
-	const luminance = ((((x - y + t * 10) / 53) * 100) % 100).toPrecision(5);
-	const color = `hsl(0, 0%, ${luminance}%)`;
-	return { color };
+	const luminance = (((x - y + t * 10) / 53) * 100) % 100;
+	return { color: "#fff", activation: luminance / 100 };
 }
 
 // Monochrome gradient v2
@@ -56,8 +55,7 @@ export function gradientMonochrome2(input: RenderInput): RenderOutput {
 	const { x, y, t } = input;
 	const position = (((x - y + t * 10) / 53) * 100) % 200;
 	const luminance = position > 100 ? 200 - position : position;
-	const color = `hsl(0, 0%, ${luminance.toPrecision(5)}%)`;
-	return { color };
+	return { color: "#fff", activation: luminance / 100 };
 }
 
 // Pink uwu
