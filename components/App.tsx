@@ -9,13 +9,17 @@ import * as styles from "./App.module.scss";
 export function App() {
 	const [start] = useState(() => Date.now());
 	const [frame, setFrame] = useState(0);
-	const [shader, setShader] = useState(() => SHADERS.get("d")!);
+	const [shader, setShader] = useState(
+		() => SHADERS.get(location.hash.substring(1)) ?? SHADERS.get("d")!,
+	);
 
 	useEffect(() => {
 		const onKeyDown = (event: KeyboardEvent) => {
-			const shader = SHADERS.get(event.key.toLowerCase());
+			let key = event.key.toLowerCase();
+			const shader = SHADERS.get(key);
 
 			if (shader) {
+				location.hash = key;
 				setShader(() => shader);
 			}
 		};
