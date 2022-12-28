@@ -27,6 +27,7 @@ export const SHADERS = new Map([
 	["a", sin],
 	["s", rain],
 	["d", waves],
+	["f", rgb],
 ]);
 
 // Rainbow gradient
@@ -146,4 +147,12 @@ export function waves(input: RenderInput): RenderOutput {
 	// const color = hexToString(lerpHex(y / 25, 0x7df46a, 0xf4de6a)); // green and yellow
 	const color = hexToString(lerpHex(x / 40, 0x8d1bd2, 0xf6199e)); // purple and pink
 	return { color, activation };
+}
+
+export function rgb(input: RenderInput): RenderOutput {
+	const { x } = input;
+
+	const color = hexToString(0xff0000 >> ((x % 3) * 8));
+	// console.log(color);
+	return { color, activation: 0.9 + Math.random() * 0.5 };
 }

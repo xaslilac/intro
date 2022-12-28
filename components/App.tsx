@@ -9,7 +9,7 @@ import * as styles from "./App.module.scss";
 export function App() {
 	const [start] = useState(() => Date.now());
 	const [frame, setFrame] = useState(0);
-	const [shader, setShader] = useState(() => SHADERS.get("s")!);
+	const [shader, setShader] = useState(() => SHADERS.get("d")!);
 
 	useEffect(() => {
 		const onKeyDown = (event: KeyboardEvent) => {
