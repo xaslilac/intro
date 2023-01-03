@@ -79,7 +79,7 @@ export function checkered(input: RenderInput): RenderOutput {
 	const { x, y, t } = input;
 	const h = (x + t) % 10 >= 5;
 	const v = (y + t) % 10 >= 5;
-	return { color: h ^ v ? "#fff" : "#333" };
+	return { color: h !== v ? "#fff" : "#333" };
 }
 
 // Checkered, marching but FAST
@@ -87,7 +87,7 @@ export function checkeredFast(input: RenderInput): RenderOutput {
 	const { x, y, t } = input;
 	const h = (x + t * 20) % 10 >= 5;
 	const v = (y + t * 20) % 10 >= 5;
-	return { color: h ^ v ? "#fff" : "#333" };
+	return { color: h !== v ? "#fff" : "#333" };
 }
 
 // Checkered, marching but FAST *and* rainbow
@@ -96,7 +96,7 @@ export function checkeredRainbowFast(input: RenderInput): RenderOutput {
 	const h = (x + t * 10) % 10 >= 5;
 	const v = (y + t * 10) % 10 >= 5;
 	const color = `hsl(${(((x - y + t * 10) / 100) * 360).toPrecision(5)}, 90%, 70%)`;
-	return { color, activation: h ^ v ? 1 : 0.3 };
+	return { color, activation: h !== v ? 1 : 0.3 };
 }
 
 // Sweep

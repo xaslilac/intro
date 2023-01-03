@@ -1,3 +1,4 @@
+/// <reference types="jest" />
 import { Extent, Point, rect } from "./geometry";
 
 test("rect", () => {

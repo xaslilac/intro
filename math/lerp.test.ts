@@ -1,3 +1,4 @@
+/// <reference types="jest" />
 import { lerpClamp } from "./lerp";
 
 test("lerpClamp", () => {
